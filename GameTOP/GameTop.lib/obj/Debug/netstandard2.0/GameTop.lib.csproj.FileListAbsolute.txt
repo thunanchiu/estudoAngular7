@@ -1,0 +1,12 @@
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.csprojAssemblyReference.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.csproj.CoreCompileInputs.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.AssemblyInfoInputs.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.AssemblyInfo.cs
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\bin\Debug\netstandard2.0\GameTop.lib.deps.json
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\bin\Debug\netstandard2.0\GameTop.lib.dll
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\bin\Debug\netstandard2.0\GameTop.lib.pdb
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\bin\Debug\netstandard2.0\GameTOP.Interface.dll
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\bin\Debug\netstandard2.0\GameTOP.Interface.pdb
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.csproj.CopyComplete
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.dll
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\GameTop.lib\obj\Debug\netstandard2.0\GameTop.lib.pdb

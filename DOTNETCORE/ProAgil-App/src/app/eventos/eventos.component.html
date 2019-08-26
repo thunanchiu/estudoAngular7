@@ -1,0 +1,62 @@
+
+  <div class="form-inline">
+    <div class="form-group mb-2">
+      <input type="text" class="form-control mr-2" placeholder="buscar"
+      [(ngModel)]="filtroLista">
+      <button class="btn btn-outline-success">Buscar</button>
+    </div>
+  </div>
+  <h3 style="color: darkseagreen">Filtro: {{filtroLista}}</h3>
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>
+          <button (click)="alternarImagem()" class="btn btn-outline-primary">
+            <i class="{{mostrarImagem ? 'fa fa-eye-slash': 'fa fa-eye'}}"></i>
+            {{mostrarImagem ? 'Ocultar Imagem': 'Mostrar Imagem'}}
+          </button>
+        </th>
+        <th>Tema</th>
+        <th>Local</th>
+        <th>Data</th>
+        <th>Quantidade de Pessoas</th>
+        <th>Lote</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="eventos && eventos.length">
+      <tr *ngFor="let evento of eventosFiltrados">
+        <td>
+          <img *ngIf="mostrarImagem"
+          src="http://localhost:5000/img/{{evento.imagemURL}}"
+          [style.width.px]="imagemLargura"
+          [style.margin.px]="imagemAltura">
+        </td>
+        <td>{{evento.tema}}</td>
+        <td>{{evento.local}}</td>
+        <td>{{evento.dataEvento | DateTimeFormatPipe}}</td>
+        <td>{{evento.qtdPessoas}}</td>
+        <td>
+          <div *ngIf="!evento.lotes.length">
+              Não Informado
+        </div>
+        <div *ngIf="evento.lotes.length">
+          {{evento.lotes[0].nome | uppercase}}
+        </div>
+      </td>
+        <td>
+          <button class="btn btn-success mr-2"></button>
+          <button class="btn btn-danger"></button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!eventos.length">
+      <tr>
+        <td colspan="7" class="text-center">
+          <h5 style="color: crimson">
+            Nenhum evento encontrado!
+          </h5>
+        </td>
+      </tr>
+    </tfoot>
+  </table>

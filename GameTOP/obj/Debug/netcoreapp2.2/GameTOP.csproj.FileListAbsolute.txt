@@ -1,0 +1,11 @@
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\bin\Debug\netcoreapp2.2\GameTOP.deps.json
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\bin\Debug\netcoreapp2.2\GameTOP.runtimeconfig.json
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\bin\Debug\netcoreapp2.2\GameTOP.runtimeconfig.dev.json
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\bin\Debug\netcoreapp2.2\GameTOP.dll
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\bin\Debug\netcoreapp2.2\GameTOP.pdb
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.csprojAssemblyReference.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.csproj.CoreCompileInputs.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.AssemblyInfoInputs.cache
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.AssemblyInfo.cs
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.dll
+C:\Users\tafc\Documents\EstudoAngular\Estudo Angular 7 - FullStack\GameTOP\obj\Debug\netcoreapp2.2\GameTOP.pdb
