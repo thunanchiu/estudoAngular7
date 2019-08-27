@@ -19,7 +19,6 @@ export class EventosComponent implements OnInit {
   imagemLargura = 50;
   imagemAltura = 2;
   mostrarImagem = false;
-  modalRef: BsModalRef;
   _filtroLista: string;
   registerForm: FormGroup;
 
@@ -46,8 +45,8 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
   
-  openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
+  openModal(template: any){
+    template.show();
   }
 
   salvarAlteracao(){
