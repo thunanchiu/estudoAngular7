@@ -8,6 +8,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.css']
 })
+
 export class EventosComponent implements OnInit {
 
   eventos: Evento[] = [];
