@@ -4,6 +4,8 @@ import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
+import { templateJitUrl } from '@angular/compiler';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -15,6 +17,7 @@ defineLocale('pt-br', ptBrLocale);
 export class EventosComponent implements OnInit {
 
   eventos: Evento[] = [];
+  evento: Evento;
   eventosFiltrados: Evento[] = [];
   imagemLargura = 50;
   imagemAltura = 2;
@@ -46,11 +49,25 @@ export class EventosComponent implements OnInit {
   }
   
   openModal(template: any){
+    this.registerForm.reset();
     template.show();
   }
 
-  salvarAlteracao(){
+  salvarAlteracao(template: any){
+    if(this.registerForm.valid){
+      this.evento = Object.assign({}, this.registerForm.value);
+    this.eventoService.postEvento(this.evento).subscribe(
+      (novoEvento: Evento) => {
+        console.log(novoEvento);
+        template.hide();
+        this.getEventos();
+      }, error => {
+        console.log(error);
+      }
+      
+    )      
 
+    }
   }
   
   validation(){
