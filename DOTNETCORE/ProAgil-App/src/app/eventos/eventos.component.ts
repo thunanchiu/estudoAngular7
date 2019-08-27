@@ -2,7 +2,9 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../_services/evento.service';
 import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
+defineLocale('pt-br', ptBrLocale);
 
 @Component({
   selector: 'app-eventos',
@@ -23,8 +25,12 @@ export class EventosComponent implements OnInit {
 
   constructor(
     private eventoService : EventoService,
-    private modalService: BsModalService
-    ) { }
+    private modalService: BsModalService,
+    private fb: FormBuilder,
+    private localService: BsLocaleService
+    ) { 
+      this.localService.use('pt-br')
+    }
 
     ngOnInit() {
       this.getEventos();
@@ -49,14 +55,14 @@ export class EventosComponent implements OnInit {
   }
   
   validation(){
-    this.registerForm = new FormGroup({
-    tema: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
-    local: new FormControl('', Validators.required),
-    dataEvento: new FormControl('', Validators.required),
-    qtdPessoas: new FormControl('', [Validators.required, Validators.max(50000)]), 
-    telefone: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    imagemURL: new FormControl('', Validators.required)
+    this.registerForm = this.fb.group({
+    tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    local: ['', Validators.required],
+    dataEvento: ['', Validators.required],
+    qtdPessoas: ['', [Validators.required, Validators.max(50000)]], 
+    telefone: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    imagemURL: ['', Validators.required]
     })
   }  
 
