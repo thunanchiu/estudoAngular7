@@ -24,6 +24,7 @@ export class EventosComponent implements OnInit {
   mostrarImagem = false;
   _filtroLista: string;
   registerForm: FormGroup;
+  modoSalvar = 'post';
 
   constructor(
     private eventoService : EventoService,
@@ -54,13 +55,20 @@ export class EventosComponent implements OnInit {
     template.show();
   }
 
+  openModalNovo(template: any){ 
+    this.modoSalvar = 'post';
+    this.openModal(template);
+  }
+
   openModalEditar(id: number, template: any){
+    this.modoSalvar = 'put';
     var eventoEditar = this.eventoService.getEventoById(id).subscribe(
       (novoEvento: Evento) => {
         //Faz copia do objeto novoEvento para evento
         this.evento = Object.assign({}, novoEvento);   
         this.openModal(template);
         //Preenche o modal
+        debugger;
         this.registerForm.patchValue(this.evento);     
       }, error => {
         console.log(error);
@@ -69,20 +77,38 @@ export class EventosComponent implements OnInit {
   }
 
   salvarAlteracao(template: any){
-    if(this.registerForm.valid){
-      this.evento = Object.assign({}, this.registerForm.value);
-    this.eventoService.postEvento(this.evento).subscribe(
-      (novoEvento: Evento) => {
-        console.log(novoEvento);
-        template.hide();
-        this.getEventos();
-      }, error => {
-        console.log(error);
+    debugger;
+    if(this.modoSalvar == 'post'){
+      if(this.registerForm.valid){
+        this.evento = Object.assign({}, this.registerForm.value);
+        this.eventoService.postEvento(this.evento).subscribe(
+        (novoEvento: Evento) => {
+          console.log(novoEvento);
+          template.hide();
+          this.getEventos();
+        }, error => {
+          console.log(error);
+        }        
+      )     
+  
       }
-      
-    )      
-
+    }else{
+      if(this.registerForm.valid){
+        this.evento = Object.assign({eventoId: this.evento.eventoId}, this.registerForm.value);
+        this.eventoService.putEvento(this.evento).subscribe(
+        (novoEvento: Evento) => {
+          console.log(novoEvento);
+          template.hide();
+          this.getEventos();
+        }, error => {
+          console.log(error);
+        }        
+      )      
+  
+      }
     }
+
+    
   }
 
 
@@ -115,6 +141,7 @@ export class EventosComponent implements OnInit {
     this.eventoService.getAllEvento().subscribe(
       (_eventos: Evento[]) => {
         this.eventos = _eventos;
+        debugger;
         this.eventosFiltrados = _eventos;
       }, error => {
         console.log(error);

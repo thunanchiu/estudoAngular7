@@ -7,7 +7,7 @@
     </div>
   </div>
   <div>
-      <button class="btn btn-outline-primary" (click)="openModal(template)">
+      <button class="btn btn-outline-primary" (click)="openModalNovo(template)">
         <i class="fa fa-plus-circle"></i>&nbsp;
         Novo Evento
       </button>
@@ -61,6 +61,7 @@
                 </button>
           </div>          
         </td>
+        <td style = "display:none">{{evento.eventoId}}</td>
       </tr>
     </tbody>
     <tfoot *ngIf="!eventos.length">
