@@ -48,9 +48,24 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
   
-  openModal(template: any){
+  openModal(template: any){ 
+    //Reseta o form   
     this.registerForm.reset();
     template.show();
+  }
+
+  openModalEditar(id: number, template: any){
+    var eventoEditar = this.eventoService.getEventoById(id).subscribe(
+      (novoEvento: Evento) => {
+        //Faz copia do objeto novoEvento para evento
+        this.evento = Object.assign({}, novoEvento);   
+        this.openModal(template);
+        //Preenche o modal
+        this.registerForm.patchValue(this.evento);     
+      }, error => {
+        console.log(error);
+      }
+    );        
   }
 
   salvarAlteracao(template: any){
@@ -69,6 +84,8 @@ export class EventosComponent implements OnInit {
 
     }
   }
+
+
   
   validation(){
     this.registerForm = this.fb.group({
@@ -99,6 +116,16 @@ export class EventosComponent implements OnInit {
       (_eventos: Evento[]) => {
         this.eventos = _eventos;
         this.eventosFiltrados = _eventos;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getEvendo(id : number){
+    this.eventoService.getEventoById(id).subscribe(
+      (_evento: Evento) => {
+        this.evento = _evento;        
       }, error => {
         console.log(error);
       }
