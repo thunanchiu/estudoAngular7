@@ -33,4 +33,9 @@ putEvento(evento: Evento){
   return this.http.put(`${this.baseURL}/${evento.eventoId}`, evento);
 }
 
+delete(idEvento : number){
+  debugger;
+  return this.http.delete(`${this.baseURL}/${idEvento}` );
+}
+
 }
