@@ -10,9 +10,9 @@ namespace ProAgil.WebAPI.Helpers
         public AutoMapperProfiles(){
 
             
-            CreateMap<Palestrante,  PalestranteDTO>();
-            CreateMap<Lote,  LoteDTO>();
-            CreateMap<RedeSocial,  RedeSocialDTO>();
+            CreateMap<Palestrante,  PalestranteDTO>().ReverseMap();
+            CreateMap<Lote,  LoteDTO>().ReverseMap();
+            CreateMap<RedeSocial,  RedeSocialDTO>().ReverseMap();
 
             //Mapeamento da Entidade para o DTO
             CreateMap<Evento,  EventoDTO>()
@@ -24,12 +24,12 @@ namespace ProAgil.WebAPI.Helpers
                     //Ou seja, o mapeamento virá da Entidade Evento e dentro tem uma lista de PalestrantesEventos
                     //onde que para cada item de PalestranteEventos pegue o palestrante.
                     opt.MapFrom(src => src.PalestranteEventos.Select(x => x.Palestrante).ToList());
-                });
+                }).ReverseMap();
             
             CreateMap<Palestrante, PalestranteDTO>()                
                 .ForMember(dest => dest.Eventos, opt => {
                     opt.MapFrom(src => src.PalestranteEventos.Select(x => x.Evento).ToList());
-                });
+                }).ReverseMap();
 
             
 

@@ -43,7 +43,7 @@ namespace ProAgil.Repository
             if(includePalestrantes)
             {
                 query = query
-                .Include(pe => pe.PalestranteEvento)
+                .Include(pe => pe.PalestranteEventos)
                 .ThenInclude(p => p.Palestrante);
             }
 
@@ -60,7 +60,7 @@ namespace ProAgil.Repository
             if(includePalestrantes)
             {
                 query = query
-                .Include(pe => pe.PalestranteEvento)
+                .Include(pe => pe.PalestranteEventos)
                 .ThenInclude(p => p.Palestrante);
             }
 
@@ -79,7 +79,7 @@ namespace ProAgil.Repository
             if(includePalestrantes)
             {
                 query = query
-                .Include(pe => pe.PalestranteEvento)
+                .Include(pe => pe.PalestranteEventos)
                 .ThenInclude(p => p.Palestrante);
             }
 
