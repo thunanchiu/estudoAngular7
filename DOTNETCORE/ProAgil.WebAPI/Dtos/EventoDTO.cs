@@ -17,6 +17,6 @@ namespace ProAgil.WebAPI.Dtos
         public string Lote { get; set; }
         public List<LoteDTO> Lotes { get; set; }
         public List<RedeSocialDTO> RedeSociais { get; set; }
-        public List<PalestranteDTO> Palestrante { get; set; }
+        public List<PalestranteDTO> Palestrantes { get; set; }
     }
 }
