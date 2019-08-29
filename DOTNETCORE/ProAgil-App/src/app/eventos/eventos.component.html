@@ -114,7 +114,11 @@
             </div>
             <div class="form-group col-md-4">
               <label>Data e Hora</label>
-              <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYY hh:mm a'}"
+              <input type="text" class="form-control"
+                bsDatepicker
+                value = "{{dataEvento | DateTimeFormatPipe}}"
+                [(ngModel)] = "dataEvento"
+                [bsConfig]="{ dateInputFormat : 'DD/MM/YYY hh:mm a'}"
                 [ngClass]="{'is-invalid': registerForm.get('dataEvento').errors && registerForm.get('dataEvento').touched}"
                 formControlName="dataEvento" placeholder="Insira a Data e Hora">
               <div class="invalid-feedback">
