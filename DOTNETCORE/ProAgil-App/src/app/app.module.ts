@@ -7,6 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap'
 import { ModalModule } from 'ngx-bootstrap'
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr'
 
 import { EventoService } from './_services/evento.service';
 
@@ -34,7 +35,8 @@ import { DateTimeFormatPipePipe } from './_helper/DateTimeFormatPipe.pipe';
       BsDatepickerModule.forRoot(),
       FormsModule,
       ReactiveFormsModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      ToastrModule.forRoot()
    ],
    providers: [
       EventoService
