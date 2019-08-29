@@ -25,6 +25,7 @@ export class EventosComponent implements OnInit {
   registerForm: FormGroup;
   modoSalvar = 'post';
   bodyDeletarEvento = '';
+  titulo = "Eventos";
 
   constructor(
     private eventoService: EventoService,
