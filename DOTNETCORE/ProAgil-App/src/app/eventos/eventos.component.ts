@@ -26,6 +26,7 @@ export class EventosComponent implements OnInit {
   modoSalvar = 'post';
   bodyDeletarEvento = '';
   titulo = "Eventos";
+  file: File;
 
   constructor(
     private eventoService: EventoService,
@@ -95,6 +96,14 @@ export class EventosComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  onFileChenge(event){
+    const reader = new FileReader();
+
+    if(event.target.files && event.target.files.length){
+      this.file = event.target.files;
+    }
   }
 
   salvarAlteracao(template: any) {

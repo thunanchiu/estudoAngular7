@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +38,43 @@ namespace ProAgil.WebAPI.Controllers
             {                
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou. {ex.Message}" );
             }
+            
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> upload()
+        {
+            try
+            {
+                //Pegando o arquivo
+                var file = Request.Form.Files[0];
+                //Pegando o diretorio onde quer armazenar ele
+                var folderName = Path.Combine("Resources","Images");
+                //Está combinando o diretório onde que armazenar mais o diretorio da aplicação.
+                //Neste caso quer que armazene a imagem no diretório da aplicação.
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+
+                if(file.Length > 0){
+                    //Converte o arquivo e pega o nome dele
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    //Verifica se o nome do arquivo possu aspas duplas ou espaço e remove
+                    var fullPath = Path.Combine(pathToSave, fileName.Replace("\"", " ").Trim());
+                    
+                    //Vai pegar o fullpath e vai dizer que é nele que quer salvar, onde irá criar o arquivo. 
+                    using(var stream = new FileStream(fullPath, FileMode.Create)){
+                        file.CopyTo(stream);
+                    }
+                }
+
+                return Ok(); 
+            }
+            catch (System.Exception ex)
+            {                
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou. {ex.Message}" );
+            }
+
+           // return BadRequest("Erro ao tentar realizar upload.")
             
         }
 
