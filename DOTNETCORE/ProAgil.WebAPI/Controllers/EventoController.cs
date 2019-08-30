@@ -58,7 +58,7 @@ namespace ProAgil.WebAPI.Controllers
                 if(file.Length > 0){
                     //Converte o arquivo e pega o nome dele
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
-                    //Verifica se o nome do arquivo possu aspas duplas ou espaço e remove
+                    //Verifica se o nome do arquivo possui aspas duplas ou espaço e remove
                     var fullPath = Path.Combine(pathToSave, fileName.Replace("\"", " ").Trim());
                     
                     //Vai pegar o fullpath e vai dizer que é nele que quer salvar, onde irá criar o arquivo. 
