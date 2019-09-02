@@ -71,7 +71,7 @@ export class EventosComponent implements OnInit {
       (novoEvento: Evento) => {
         //Faz copia do objeto novoEvento para evento
         this.evento = Object.assign({}, novoEvento);
-        this.evento.imagemURL = '';
+        this.evento.imagemURL = '';     
         this.fileNameToUpDate = novoEvento.imagemURL.toString();
         this.openModal(template);
         //Preenche o modal
@@ -115,17 +115,22 @@ export class EventosComponent implements OnInit {
     //Tem que dar um split porque inicialmente é criado uma pasta fake, com isso quebramos
     //em um array e depois pegamos a posição que esta de fato o nome da imagem.
     //Caso já tenha savo no banco a a pasta fake, tammbem irá tratar.
-    if (this.modoSalvar == 'post') {
+    if (this.modoSalvar == 'post') {      
       const nomeArquivo = this.evento.imagemURL.split('\\', 3);
-
       this.evento.imagemURL = nomeArquivo[2];
       this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe();    
       //Salvar Imagem - Fim.
     }else{
       const nomeArquivo = this.evento.imagemURL.split('\\', 3);
-
-      this.evento.imagemURL = nomeArquivo[2];
-      this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe();
+      debugger;
+      this.evento.imagemURL = nomeArquivo[2];            
+      var nomesImagens = [];
+      this.eventos.forEach(element => {
+        if(element.imagemURL != ""){
+          nomesImagens.push(element.imagemURL);
+        }
+      });
+      this.eventoService.postUpload(this.file, nomeArquivo[2], this.fileNameToUpDate).subscribe();
     }
     
   }
@@ -199,9 +204,27 @@ export class EventosComponent implements OnInit {
   getEventos() {
     this.eventoService.getAllEvento().subscribe(
       (_eventos: Evento[]) => {
-        debugger
         this.eventos = _eventos;
         this.eventosFiltrados = _eventos;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getNomesImagens(): any{
+    this.eventoService.getAllEvento().subscribe(
+      (_eventos: Evento[]) => {
+        var nomesImagens = [];
+        this.eventos = _eventos;
+        
+        this.eventos.forEach(element => {
+          if(element.imagemURL != ""){
+            nomesImagens.push(element.imagemURL);
+          }
+        });
+
+        return nomesImagens;
       }, error => {
         console.log(error);
       }
