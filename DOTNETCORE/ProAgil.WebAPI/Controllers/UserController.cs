@@ -17,7 +17,7 @@ using ProAgil.WebAPI.Dtos;
 
 namespace ProAgil.WebAPI.Controllers
 {
-    [Route("api[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -39,14 +39,15 @@ namespace ProAgil.WebAPI.Controllers
         }
 
         [HttpGet("GetUser")]
-        public async Task<IActionResult> GetUser(UserDTO userDTO){
-            return Ok(userDTO);
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUser(){
+            return Ok(new UserDTO());
         }
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(UserDTO userDTO){
-            
+        public async Task<IActionResult> Register(UserDTO userDTO)
+        {            
             try
             {
                 var user = _mapper.Map<User>(userDTO);
@@ -68,6 +69,7 @@ namespace ProAgil.WebAPI.Controllers
 
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDTO){
 
             try

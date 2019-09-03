@@ -108,12 +108,13 @@ namespace ProAgil.WebAPI
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+        
 
+            //app.UseHttpsRedirection();
+            app.UseAuthentication();
             //Essa configuração tem de vir antes do app.UseMvc(). Nesta configuração
             //esta permitindo que toda origem, todo metodo e todo cabeçalho fazer requisições neste projeto.
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions(){
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 RequestPath = new PathString("/Resources")
