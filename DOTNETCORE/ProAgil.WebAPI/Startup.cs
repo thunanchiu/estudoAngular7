@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using ProAgil.Domain.Identity;
 using ProAgil.Repository;
 
 namespace ProAgil.WebAPI
@@ -33,12 +40,58 @@ namespace ProAgil.WebAPI
         {
             services.AddDbContext<ProAgilContext>(x =>
              x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            #region Configurações
+
+            //Configurações de Password               
+            IdentityBuilder builder = services.AddIdentityCore<User>( options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            });
+            //Configurações de contexto e de roles; De usuarios
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<ProAgilContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            //Configuração de quem vai controlar o cadastro do usuario
+            builder.AddSignInManager<SignInManager<User>>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            //Configurações de politica de autenticação dos controllers.
+            services.AddMvc(
+                option => {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                        option.Filters.Add(new AuthorizeFilter(policy));
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = 
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore);            
+            #endregion 
+
+
              //Injeção de dependência do repositorio. Ou seja, toda vez que oo controllers precisarem de
              //IProAgilRepository injetará o repositorio. Com isso deixa o controller desacoplado.
              //Com isso, o controller não irá requisitar o contexto diretamente.
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
-            services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAutoMapper();            
             services.AddCors();
         }
 
