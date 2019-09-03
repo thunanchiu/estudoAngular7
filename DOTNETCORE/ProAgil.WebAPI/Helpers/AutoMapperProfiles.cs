@@ -15,6 +15,7 @@ namespace ProAgil.WebAPI.Helpers
             CreateMap<Lote,  LoteDTO>().ReverseMap();
             CreateMap<RedeSocial,  RedeSocialDTO>().ReverseMap();
             CreateMap<User,  UserDTO>().ReverseMap();
+            CreateMap<User,  UserLoginDTO>().ReverseMap();
 
             //Mapeamento da Entidade para o DTO
             CreateMap<Evento,  EventoDTO>()
