@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-
+import { User } from '../../_models/User';
+import { AuthService } from '../../_services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -10,9 +12,12 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
+  user: User;
 
   constructor(public fb: FormBuilder,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private authService: AuthService,
+              public router: Router) { }
 
   ngOnInit() {
     this.validation();
@@ -47,8 +52,29 @@ export class RegistrationComponent implements OnInit {
 
   }
 
-  cadastrarUsuario(){
-    console.log("Cadastrar usuário");
+  cadastrarUsuario(){    
+    if(this.registerForm.valid){
+      this.user = Object.assign(
+        {password: this.registerForm.get('passwords.password').value},
+         this.registerForm.value);
+      this.authService.register(this.user).subscribe(
+        () => {
+          this.router.navigate(['/user/login']);
+          this.toastr.success('Cadastro realizado.');
+        }, error => {
+          const erro = error.error;
+          erro.forEach(element => {
+            switch (element.code){
+              case 'DuplicateUserName':
+                this.toastr.error('Já existe um cadastro com esse username');
+                break;
+              default:
+                this.toastr.error(`Erro no cadastro! Code: ${element.code}`);
+            }
+          });
+        }
+      )
+    }
   }
 
 }

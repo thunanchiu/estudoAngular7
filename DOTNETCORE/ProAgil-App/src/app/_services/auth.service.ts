@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt'
-import { map } from 'rxjs/operators'
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   register(model: any){
-    return this.http.post(`$${this.baseURL}login`, model);
+    return this.http.post(`${this.baseURL}register`, model);
   }
 
   loggedIn(){
