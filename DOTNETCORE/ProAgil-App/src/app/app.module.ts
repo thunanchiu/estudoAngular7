@@ -2,14 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TooltipModule, BsDatepickerModule } from 'ngx-bootstrap'
+import { TooltipModule, BsDatepickerModule, TabsModule } from 'ngx-bootstrap'
 import { BsDropdownModule } from 'ngx-bootstrap'
 import { ModalModule } from 'ngx-bootstrap'
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr'
+import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from 'ngx-mask';
 
-import { EventoService } from './_services/evento.service';
+
+import { EventoService } from './_services/evento.service'; 
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
@@ -24,6 +26,7 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       TituloComponent,
       UserComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      EventoEditComponent
    ],
    imports: [
       BrowserModule,
@@ -48,6 +52,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      TabsModule.forRoot(),
+      NgxMaskModule.forRoot(),
       FormsModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
