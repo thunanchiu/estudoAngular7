@@ -7,6 +7,7 @@ import { ContatosComponent } from './contatos/contatos.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
@@ -15,11 +16,13 @@ const routes: Routes = [
       {path: 'login', component: LoginComponent},
       {path: 'registration', component: RegistrationComponent}
     ]},
-    
-  {path: 'eventos', component: EventosComponent},
-  {path: 'palestrantes', component: PalestrantesComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'contatos', component: ContatosComponent},
+  
+  //O canActivate: [AuthGuard] bloquei o acesso sem estar logado.
+  //Está configurado na pasta auth.guard.ts
+  {path: 'eventos', component: EventosComponent, canActivate: [AuthGuard]},
+  {path: 'palestrantes', component: PalestrantesComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'contatos', component: ContatosComponent, canActivate: [AuthGuard]},
   //Caso nenhuma rota for atribuida no endereço, será redirecionado para o dashboard.
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   //Se qualquer rota no endereço não iver dado match nas rotas a cima, será redirecionado para o dashboard.
