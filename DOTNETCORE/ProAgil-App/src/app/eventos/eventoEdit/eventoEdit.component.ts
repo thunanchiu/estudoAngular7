@@ -61,9 +61,9 @@ export class EventoEditComponent implements OnInit {
 
   carregarEvento(){
     const idEvento = +this.Router.snapshot.paramMap.get('id');
-    this.eventoService.getEventoById(idEvento).subscribe(
+    this.eventoService.getEventoById(idEvento).subscribe( 
       (evento: Evento) =>{
-        
+        debugger
         this.evento = Object.assign({}, evento);
         this.fileNameToUpDate = evento.imagemURL.toString();
         this.imagemURL = `http://localhost:5000/Resources/Images/${this.evento.imagemURL}?_ts=${this.dataAtual}`
@@ -73,7 +73,7 @@ export class EventoEditComponent implements OnInit {
         this.evento.lotes.forEach(lote => {
           this.lotes.push(this.criaLote(lote));
         });
-        this.evento.redeSociais.forEach(redeSocial => {
+        this.evento.redesSociais.forEach(redeSocial => {
           this.redesSociais.push(this.criaRedesSociais(redeSocial));
         });
       }
@@ -86,8 +86,8 @@ export class EventoEditComponent implements OnInit {
       nome:[lote.nome, Validators.required],
       quantidade: [lote.qauntidade, Validators.required],
       preco: [lote.preco, Validators.required],
-      dataInicio: [lote.dataInicio],
-      dataFim: [lote.dataFim]
+      dataInicio: [lote.dataInicio, Validators.required],
+      dataFim: [lote.dataFim, Validators.required]
     });
   }
 
@@ -115,12 +115,43 @@ export class EventoEditComponent implements OnInit {
     this.redesSociais.removeAt(id);
   }
 
-  onFileChange(file: FileList){
+  onFileChange(evento: any ,file: FileList){
     const reader = new FileReader();
 
     reader.onload = (event: any) => this.imagemURL = event.target.result;
-
+    this.file = evento.target.files;
     reader.readAsDataURL(file[0]);
+  }
+
+  salvarEvento(){
+    debugger
+    this.evento = Object.assign({ eventoId: this.evento.eventoId }, this.registerForm.value);
+    this.evento.imagemURL = this.fileNameToUpDate;
+        this.uploadImagem();
+        this.eventoService.putEvento(this.evento).subscribe(
+          (novoEvento: Evento) => {
+            console.log(novoEvento);
+            this.toastr.success('Alterado com sucesso!') 
+          }, error => {
+            this.toastr.error('Erro ao tentar alterar.')
+            console.log(error);
+          }
+        )
+  }
+
+  uploadImagem(){
+    
+    if(this.registerForm.get('imagemURL').value != ''){
+      this.eventoService.postUpload(this.file, this.fileNameToUpDate)
+      .subscribe(
+        () => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.imagemURL = `http://localhost:5000/Resources/Images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+          
+        }
+      )
+    }    
+
   }
 
 }
