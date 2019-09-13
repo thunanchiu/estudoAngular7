@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 import { EventoService } from './_services/evento.service'; 
@@ -57,7 +58,8 @@ import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
       FormsModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
-      ToastrModule.forRoot()
+      ToastrModule.forRoot(),
+      NgxCurrencyModule
    ],
    providers: [
       EventoService, 
