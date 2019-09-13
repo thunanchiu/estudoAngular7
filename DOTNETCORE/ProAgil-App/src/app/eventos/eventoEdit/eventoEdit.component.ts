@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EventoService } from 'src/app/_services/evento.service';
 import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Evento } from 'src/app/_models/Evento';
 
 @Component({
   selector: 'app-evento-edit',
@@ -13,8 +14,17 @@ export class EventoEditComponent implements OnInit {
 
   registerForm: FormGroup;
   titulo = 'Editar Evento';  
-  evento = {};
+  evento: Evento = new Evento;
   imagemURL = 'assets/img/download.png';
+  file: File;
+
+  get lotes(): FormArray{
+    return <FormArray>this.registerForm.get('lotes');
+  }
+
+  get redesSociais(): FormArray{
+    return <FormArray>this.registerForm.get('lotes');
+  }
 
   constructor(
     private eventoService: EventoService,
@@ -39,18 +49,42 @@ export class EventoEditComponent implements OnInit {
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       imagemURL: [''],
-      lotes: this.fb.group({
-        nome:['', Validators.required],
-        quantidade: ['', Validators.required],
-        preco: ['', Validators.required],
-        dataInicio: [''],
-        dataFim: ['']
-      }),
-      redesSociais: this.fb.group({
-        nome:['', Validators.required],
-        url: ['', Validators.required],
-      })
+      lotes: this.fb.array([this.criaLote()]) ,
+      redesSociais:  this.fb.array([this.criaRedesSociais()])
     })
+  }
+
+  criaLote(): FormGroup{
+    return this.fb.group({
+      nome:['', Validators.required],
+      quantidade: ['', Validators.required],
+      preco: ['', Validators.required],
+      dataInicio: [''],
+      dataFim: ['']
+    });
+  }
+
+  criaRedesSociais(): FormGroup{
+    return this.fb.group({
+      nome:['', Validators.required],
+      url: ['', Validators.required],
+    });
+  }
+
+  adicionarLote(){
+    this.lotes.push(this.criaLote());
+  }
+
+  adicionarRedeSocial(){
+    this.redesSociais.push(this.criaRedesSociais());
+  }
+
+  removerLote(id: number){
+    this.lotes.removeAt(id)
+  }
+
+  removerRedeSocial(id: number){
+    this.redesSociais.removeAt(id);
   }
 
   onFileChange(file: FileList){
