@@ -60,10 +60,11 @@ export class EventoEditComponent implements OnInit {
   }
 
   carregarEvento(){
+    debugger
     const idEvento = +this.Router.snapshot.paramMap.get('id');
     this.eventoService.getEventoById(idEvento).subscribe( 
       (evento: Evento) =>{
-        debugger
+        debugger        
         this.evento = Object.assign({}, evento);
         this.fileNameToUpDate = evento.imagemURL.toString();
         this.imagemURL = `http://localhost:5000/Resources/Images/${this.evento.imagemURL}?_ts=${this.dataAtual}`
@@ -84,10 +85,10 @@ export class EventoEditComponent implements OnInit {
     return this.fb.group({
       id: [lote.id],
       nome:[lote.nome, Validators.required],
-      quantidade: [lote.qauntidade, Validators.required],
+      quantidade: [lote.quantidade, Validators.required],
       preco: [lote.preco, Validators.required],
-      dataInicio: [lote.dataInicio, Validators.required],
-      dataFim: [lote.dataFim, Validators.required]
+      dataInicio: [lote.dataInicio],
+      dataFim: [lote.dataFim]
     });
   }
 
